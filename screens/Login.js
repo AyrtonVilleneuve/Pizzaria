@@ -109,10 +109,10 @@ const Login = () => {
             </View>
             <Button
                 onPress={ () => {
+                   
+                  SignIn(email,password, () => {
                     navigator.navigate('Home')
-                //   SignIn(email,password, () => {
-                //     navigator.navigate('Home')
-                //   })
+                  })
                 }}
                 title="Enviar"
             />

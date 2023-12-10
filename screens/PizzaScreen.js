@@ -7,7 +7,7 @@ import {
     Pressable,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import pizza from "../data/pizza";
+
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import PizzaComponent from "../components/PizzaComponent";
@@ -19,6 +19,8 @@ const PizzaScreen =  () => {
     const [data,setData] = useState([])
 
     useEffect(() => {
+
+        // Coleta os sabores diretamente do banco de dados
         GetPizzas().then((pizza) => {
             setData(pizza)
 
@@ -42,7 +44,10 @@ const PizzaScreen =  () => {
                 color="black"
             />
             <FlatList
+                
                 numColumns={2}
+
+                style={{width:'100%'}}
                 showsVerticalScrollIndicator={false}
                 data={data}
                 renderItem={({ item }) => <PizzaComponent pizza={item} key={item.id} />}
@@ -74,6 +79,9 @@ const PizzaScreen =  () => {
         </SafeAreaView>
     );
 };
+
+
+
 
 export default PizzaScreen;
 
