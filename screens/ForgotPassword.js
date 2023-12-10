@@ -1,10 +1,26 @@
-import React from 'react';
-import { Text, View, Image, TextInput, Button } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, Image, TextInput, Button, Alert } from 'react-native';
+import { PasswordReset } from '../utils/authHandles/AuthHandles.util';
 
 const ForgotPassWord = ({ navigation }) => {
   const goToPage = (path) => {
     navigation.navigate(path);
-  };
+  };  
+
+  const [email, setEmail] = useState('')
+
+  const handleSendPasswordReset = async () => {
+
+      if(!email){
+        return Alert.alert('Email vazio', 'Por favor, insira seu email')
+      }else{
+        await PasswordReset(email, () => {
+          Alert.alert('Redefinição de senha','Um link de redefinição de senha foi enviado ao seu email')
+          goToPage('Login')
+        })
+      }
+    
+  }
 
   return (
     <View style={styles.container}>
@@ -21,6 +37,7 @@ const ForgotPassWord = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <Text>Email</Text>
         <TextInput
+          onChangeText={(value) => setEmail(value)}
           style={styles.input}
           keyboardType="email-address"
           autoCapitalize="none"
@@ -43,7 +60,7 @@ const ForgotPassWord = ({ navigation }) => {
         />
       </View>
 
-      <Button onPress={() => goToPage('Login')} title="Recuperar" />
+      <Button onPress={() => handleSendPasswordReset()} title="Recuperar" />
     </View>
   );
 };

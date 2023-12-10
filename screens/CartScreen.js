@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useContext } from "react";
-import { CartItems } from "../Context";
+import { CartItems } from "../context/Context";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 const CartScreen = () => {

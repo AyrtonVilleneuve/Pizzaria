@@ -10,7 +10,7 @@ import {
   import React  ,{useContext}from "react";
   import MenuComponent from "../components/MenuComponent";
   import { useNavigation } from "@react-navigation/native";
-  import { CartItems } from "../Context";
+  import {CartItems} from "../context/Context";
   
   const HomeScreen = () => {
     const data = [

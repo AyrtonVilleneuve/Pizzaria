@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import React, { useContext, useState } from "react";
-import { CartItems } from "../Context";
+import { CartItems } from "../context/Context";
 import Toast from "react-native-root-toast";
 
 const PizzaComponent = ({ pizza }) => {
@@ -13,6 +13,8 @@ const PizzaComponent = ({ pizza }) => {
   const [additems, setAddItems] = useState(0);
   const addToCart = () => {
     setSelected(true);
+
+
 
     if (additems === 0) {
       setAddItems(1);
@@ -69,10 +71,10 @@ const PizzaComponent = ({ pizza }) => {
   return (
     <View>
       {data.map((item, index) => (
-        <Pressable style={{ borderEndColor: "#fff", borderWidth: 0.1 }}>
+        <Pressable key={index} style={{ borderEndColor: "#fff", borderWidth: 0.1 }}>
           <Image
             style={{ height: 200, aspectRatio: 1 / 1, resizeMode: "cover" }}
-            source={{ uri: item.image }}
+            source={{ uri: item.imageURL }}
           />
           <View style={{ backgroundColor: "#740005", padding: 10 }}>
             <Text style={{ fontSize: 15, fontWeight: "bold", color: "white" }}>

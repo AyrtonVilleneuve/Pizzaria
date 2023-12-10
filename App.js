@@ -1,20 +1,15 @@
-import { StatusBar } from "expo-status-bar";
+
 import { StyleSheet, Text, View } from "react-native";
-import { BasketContext } from "./Context";
-import HomeScreen from "./screens/HomeScreen";
-import StackNavigator from "./StackNavigator";
+import { BasketContext, UserProvider } from "./context/Context";
+
+import StackNavigator from "./routes/StackNavigator.route";
 
 export default function App() {
   return (
     <BasketContext>
-      <StackNavigator />
+      <UserProvider>
+       <StackNavigator />
+      </UserProvider>
     </BasketContext>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-});

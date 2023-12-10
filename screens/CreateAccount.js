@@ -1,9 +1,37 @@
-import React from 'react';
-import { Text, View, Image, TextInput, Button } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, Image, TextInput, Button, Alert } from 'react-native';
+import { SignUp } from '../utils/authHandles/AuthHandles.util';
+import {useNavigation} from "@react-navigation/native"
 
-const CreateAccount = ({ navigation }) => {
+const CreateAccount = () => {
+
+    const [name,setName] = useState('')
+    const [email,setEmail] = useState('')
+    const [password,setPassword] = useState('')
+    const [confirmPassword, setConfirmPassord] = useState('')
+
+    const navigation = useNavigation()
+
     const goToPage = (path) => {
         navigation.navigate(path);
+    }   
+
+    const handleRegister = async () => {
+
+        if(password !== confirmPassword){
+            return Alert.alert('Senhas diferentes!','As senhas digitadas estão diferentes!')
+        }else if(password.length < 6){
+            return Alert.alert('A senha deve conter no mínimo 6 caractéres')
+        }
+        else if(!email | !name | !password | !confirmPassword){
+            return Alert.alert('Campos vazios!','Por favor, preencha todos os campos!')
+        }
+        else{
+             Alert.alert('Usuário criado com sucesso!','Agora basta se logar :)')
+             await SignUp(email,password, () => goToPage('Login'))
+        }   
+
+       
     }
 
     return (
@@ -32,6 +60,7 @@ const CreateAccount = ({ navigation }) => {
             <View>
                 <Text>Nome</Text>
                 <TextInput
+                 onChangeText={(value) => setName(value)}
                     style={{
                         height: 40,
                         width: '100%',
@@ -45,6 +74,7 @@ const CreateAccount = ({ navigation }) => {
             <View>
                 <Text>Email</Text>
                 <TextInput
+                    onChangeText={(value) => setEmail(value)}
                     keyboardType="email-address"
                     autoCapitalize="none"
                     style={{
@@ -60,6 +90,7 @@ const CreateAccount = ({ navigation }) => {
             <View>
                 <Text>Senha</Text>
                 <TextInput
+                    onChangeText={(value) => setPassword(value)}
                     secureTextEntry={true}
                     style={{
                         height: 40,
@@ -74,6 +105,7 @@ const CreateAccount = ({ navigation }) => {
             <View>
                 <Text>Confirmar Senha</Text>
                 <TextInput
+                    onChangeText={(value) => setConfirmPassord(value)}
                     secureTextEntry={true}
                     style={{
                         height: 40,
@@ -85,7 +117,7 @@ const CreateAccount = ({ navigation }) => {
                     }}
                 />
             </View>
-            <Button onPress={() => { goToPage('Login') }} title='Cadastrar' />
+            <Button onPress={() => handleRegister()} title='Cadastrar' />
         </View>
     );
 };
